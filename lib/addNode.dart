@@ -6,7 +6,7 @@ import 'arCoreView.dart';
 late ArCoreNode imageNode;
 
 Future addNode(ArCoreHitTestResult hit, double xPosition, double yPosition,
-    double scale
+    double scale, double zRotation
     ) async {
   final bytes =
   (await rootBundle.load('assets/images/jayz.jpeg')).buffer.asUint8List();
@@ -16,7 +16,24 @@ Future addNode(ArCoreHitTestResult hit, double xPosition, double yPosition,
     scale: vector.Vector3(scale, scale, 1),
     image: ArCoreImage(bytes: bytes, width: 500, height: 500),
     position: hit.pose.translation + vector.Vector3(xPosition, yPosition, 0),
-    rotation: hit.pose.rotation + vector.Vector4(0, 500,0, 1),
+    rotation: hit.pose.rotation + vector.Vector4(0, 500,0, zRotation),
+  );
+
+
+  arCoreController.addArCoreNode(imageNode);
+}
+
+Future addNodeWithName(ArCoreHitTestResult hit, double xPosition, double yPosition,
+    double scale, double zRotation, String nodeName) async {
+  final bytes =
+  (await rootBundle.load('assets/images/jayz.jpeg')).buffer.asUint8List();
+
+  imageNode = ArCoreNode(
+    name: nodeName,
+    scale: vector.Vector3(scale, scale, 1),
+    image: ArCoreImage(bytes: bytes, width: 500, height: 500),
+    position: hit.pose.translation + vector.Vector3(xPosition, yPosition, 0),
+    rotation: hit.pose.rotation + vector.Vector4(0, 500,0, zRotation),
   );
 
 
