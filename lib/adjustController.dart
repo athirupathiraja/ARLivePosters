@@ -122,14 +122,14 @@ class AdjustControllerState extends State<AdjustController>{
                     child: IconButton(
                       padding: EdgeInsets.all(3),
                       onPressed: () {
-                        arCoreController.removeNode(nodeName: 'rotatedNode');
-                      setState(() {
-                        yPosition += -0.1;
-                        arCoreController.removeNode(nodeName: 'imageNode');
-                        addNode(firstHit, xPosition, yPosition, scale, zRotation);
-                        print('yPosition $yPosition');
-                      });
-                    },
+                          setState((){
+                            arCoreController.removeNode(nodeName: 'rotatedNode');
+                            yPosition += -0.1;
+                            arCoreController.removeNode(nodeName: 'imageNode');
+                            addNode(firstHit, xPosition, yPosition, scale, zRotation);
+                            print('yPosition $yPosition');
+                          });
+                          },
                       icon: Icon(Icons.keyboard_arrow_down_rounded, color: Colors.white, size: 30,),
                     ),
                   )
@@ -140,10 +140,42 @@ class AdjustControllerState extends State<AdjustController>{
               width: 70,
               height: 180,
               padding: EdgeInsets.only(left: 35, bottom: 20),
+              // child: RotatedBox(
+              //   quarterTurns: 1,
+              //   child: Slider(
+              //     value: zRotation,
+              //     max: 250,
+              //     min: -250,
+              //     onChangeStart: (value) {
+              //         setState(() {
+              //           arCoreController.removeNode(nodeName: 'rotatedNode');
+              //          });
+              //         },
+              //     onChanged: (double value) {
+              //       arCoreController.removeNode(nodeName: 'rotatedNode').then((intValue) =>
+              //                             {setState((){
+              //                               zRotation = value;
+              //                               print('THIS IS THE ZROTATION: $zRotation');
+              //                               addNodeWithName(firstHit, xPosition, yPosition, scale, zRotation, 'rotatedNode');
+              //                             })});
+              //                             print('onDRAGGING is ended');
+              //     },
+              //     // onChangeEnd: (value) {
+              //     //     arCoreController.removeNode(nodeName: 'rotatedNode');
+              //     //     addNode(firstHit, xPosition, yPosition, scale, zRotation);
+              //     //
+              //     //
+              //     // },
+              //
+              //
+              //   ),
+              // )
+
               child: FlutterSlider(
-                  values: [0],
+                  values: [ zRotation],
                   max: 250,
                   min: -250,
+                  step: FlutterSliderStep(step: 25),
                   axis: Axis.vertical,
                   handler: FlutterSliderHandler(
                       decoration: BoxDecoration(
@@ -167,28 +199,56 @@ class AdjustControllerState extends State<AdjustController>{
                   onDragStarted: (handlerIndex, lowerValue, upperValue) {
                           setState(() {
     arCoreController.removeNode(nodeName: 'imageNode');
-    addNodeWithName(firstHit, xPosition, yPosition, scale, zRotation, 'rotatedNode');
+    // addNodeWithName(firstHit, xPosition, yPosition, scale, zRotation, 'rotatedNode$zRotation');
     print('DRAGGING HAS STARTED');
     });
     },
                   onDragging: (handlerIndex, lowerValue, upperValue) {
                     setState(() {
-                      zRotation = lowerValue;
-                      arCoreController.removeNode(nodeName: 'rotatedNode');
-                      addNodeWithName(firstHit, xPosition, yPosition, scale, zRotation, 'rotatedNode');
+                        arCoreController.removeNode(nodeName: 'rotatedNode')
+                            .whenComplete(() =>
+                        {
+                          zRotation = lowerValue,
+                          addRotatedNode(
+                              firstHit, xPosition, yPosition, scale, zRotation),
+                          print('THIS IS THE ZROTATION: $zRotation')
+                          // addNodeWithName(firstHit, xPosition, yPosition, scale, zRotation, 'rotatedNode');
+                        });
                     });
 
                   },
-                  // onDragCompleted: (handlerIndex, lowerValue, upperValue){
-                  //   arCoreController.removeNode(nodeName: 'rotatedNode');
-                  //   setState(()  {
-                  //     zRotation = lowerValue;
-                  //     print('zRotation after drag completed is $zRotation');
-                  //     // arCoreController.removeNodeWithIndex(handlerIndex);
-                  //     // // arCoreController.removeNode(nodeName: 'rotatedNode');
-                  //     // addNode(firstHit, xPosition, yPosition, scale, zRotation);
-                  //   });
-                  // }
+                  onDragCompleted: (handlerIndex, lowerValue, upperValue) {
+                    print('ON DRAGGINGCOMPLETED FUNC STARTED');
+                    // print('Z ROTATION IN ONDRAG COMPELTED IS $zRotation');
+
+                      setState(()  {
+                        arCoreController.init();
+
+                        Future.delayed(Duration(seconds: 2), () {
+                          print('DELAYED FUNCtiON IS GETTING CALLED');
+
+
+                          arCoreController.removeNode(nodeName: 'rotatedName');
+                          addNode(firstHit, xPosition, yPosition, scale, zRotation);
+
+                        });
+                        // Future.wait([
+                        //   arCoreController.removeNode(nodeName: 'rotatedName').then((value) => {
+                        //     addNode(firstHit, xPosition, yPosition, scale, zRotation)
+                        //   })
+                        // ]);
+                      });
+                      // zRotation = lowerValue;
+                      // addNode(firstHit, xPosition, yPosition, scale, zRotation);
+                      //  print('zRotation after drag completed is $zRotation');
+                      // print('on DRAG COMPLETED after remove node $zRotation');
+                  }
+
+
+                      // arCoreController.removeNodeWithIndex(handlerIndex);
+                      // // arCoreController.removeNode(nodeName: 'rotatedNode');
+
+
               ),
             ),
           ],

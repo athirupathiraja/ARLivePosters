@@ -8,9 +8,12 @@ late ArCoreController arCoreController;
 late ArCoreHitTestResult firstHit;
 
 class ArCoreViewScreen extends StatefulWidget {
+  final double zRotation;
   final double xPosition;
+  final double yPosition;
 
-  ArCoreViewScreen({required this.xPosition});
+
+  ArCoreViewScreen({required this.xPosition, required this.yPosition, required this.zRotation});
   @override
   ArCoreViewScreenState createState() => ArCoreViewScreenState();
 }
@@ -19,7 +22,7 @@ class ArCoreViewScreenState extends State<ArCoreViewScreen> {
 
   @override
   Widget build(BuildContext context) {
-     return ArCoreView(onArCoreViewCreated: onArCoreViewCreated, enableTapRecognizer: true, enableUpdateListener: true,);
+     return ArCoreView(onArCoreViewCreated: onArCoreViewCreated, enableTapRecognizer: true, );
   }
   void onArCoreViewCreated(ArCoreController controller) {
     arCoreController = controller;
@@ -48,9 +51,4 @@ class ArCoreViewScreenState extends State<ArCoreViewScreen> {
     addImage(firstHit);
   }
 
-  @override
-  void dispose() {
-    arCoreController.dispose();
-    super.dispose();
-  }
 }

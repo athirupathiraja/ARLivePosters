@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 import 'arCoreView.dart';
 import 'addNode.dart';
+import 'size.dart';
 import 'package:circular_menu/circular_menu.dart';
 import 'adjustController.dart';
 
@@ -19,7 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage>{
-final screen = [SizedBox(), AdjustController()];
+final screen = [SizedBox(), AdjustController(), SizeController()];
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -31,7 +32,7 @@ final screen = [SizedBox(), AdjustController()];
       body: Stack(
         alignment: AlignmentDirectional.bottomStart,
         children: [
-           ArCoreViewScreen(xPosition: xPosition),
+           ArCoreViewScreen(xPosition: xPosition, yPosition: yPosition, zRotation: zRotation),
           CircularMenu(
             toggleButtonSize: 30,
             radius: 80,
@@ -51,6 +52,9 @@ final screen = [SizedBox(), AdjustController()];
               });
             }),
             CircularMenuItem(icon: Icons.search, color:Colors.transparent, onTap: () {
+              setState(() {
+                selectedIndex = 2;
+              });
               //callback
             }),
             CircularMenuItem(icon: Icons.settings, color: Colors.transparent, onTap: () {
