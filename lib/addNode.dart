@@ -3,8 +3,12 @@ import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/services.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 import 'arCoreView.dart';
+import 'homePage.dart';
+
 late ArCoreNode imageNode;
 late ArCoreNode rotatedNode;
+late ArCoreNode scaledNode;
+vector.Vector3 scaleVector = vector.Vector3(scale, scale,1);
 
 Future addNode(ArCoreHitTestResult hit, double xPosition, double yPosition,
     double scale, double zRotation
@@ -13,8 +17,7 @@ Future addNode(ArCoreHitTestResult hit, double xPosition, double yPosition,
   (await rootBundle.load('assets/images/jayz.jpeg')).buffer.asUint8List();
 
   imageNode = ArCoreNode(
-    name: 'imageNode',
-    scale: vector.Vector3(scale, scale, 1),
+    scale: vector.Vector3(scale,scale,1),
     image: ArCoreImage(bytes: bytes, width: 500, height: 500),
     position: hit.pose.translation + vector.Vector3(xPosition, yPosition, 0),
     rotation: hit.pose.rotation + vector.Vector4(0, 500,0, zRotation),
@@ -26,13 +29,21 @@ Future addNode(ArCoreHitTestResult hit, double xPosition, double yPosition,
 
 Future addRotatedNode(ArCoreHitTestResult hit, double xPosition, double yPosition,
     double scale, double zRotation) async {
-  final bytes =
-  (await rootBundle.load('assets/images/jayz.jpeg')).buffer.asUint8List();
 
   rotatedNode = ArCoreNode(
-    name: 'rotatedNode',
     scale: vector.Vector3(scale, scale, 1),
-    image: ArCoreImage(bytes: bytes, width: 500, height: 500),
+    position: hit.pose.translation + vector.Vector3(xPosition, yPosition, 0),
+    rotation: hit.pose.rotation + vector.Vector4(0, 500,0, zRotation),
+  );
+
+
+  arCoreController.addArCoreNode(rotatedNode);
+}
+Future addScaledNode(ArCoreHitTestResult hit, double xPosition, double yPosition,
+    double scale, double zRotation) async {
+
+  scaledNode = ArCoreNode(
+    scale: vector.Vector3(scale, scale, 1),
     position: hit.pose.translation + vector.Vector3(xPosition, yPosition, 0),
     rotation: hit.pose.rotation + vector.Vector4(0, 500,0, zRotation),
   );

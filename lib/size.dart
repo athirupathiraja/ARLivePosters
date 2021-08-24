@@ -2,6 +2,7 @@
 import 'package:ar_posters/addNode.dart';
 import 'package:ar_posters/arCoreView.dart';
 import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math_64.dart' as vector;
 import 'package:flutter_xlider/flutter_xlider.dart';
 import 'arCoreView.dart';
 import 'homePage.dart';
@@ -49,28 +50,24 @@ class SizeControllerState extends State<SizeController> {
          onDragStarted: (handlerIndex, lowerValue, upperValue){
          setState(() {
            arCoreController.removeNode(nodeName: 'imageNode');
+           addScaledNode(firstHit, xPosition, yPosition, scale, zRotation);
          });
          },
        onDragging: (handlerIndex, lowerValue, upperValue) {
          setState(() {
-           arCoreController.removeNode(nodeName: 'imageNode').then((value) =>
-           {
-             scale = lowerValue,
-             print('SCALE IS $scale'),
-             addNode(firstHit, xPosition, yPosition, scale, zRotation)
-           });
+           arCoreController.removeNode(nodeName: 'scaledNode');
+           scale = lowerValue;
+           addScaledNode(firstHit, xPosition, yPosition, scale, zRotation);
          });
        },
-       // onDragCompleted: (handlerIndex, lowerValue, upperValue) {
-       //   setState(() {
-       //     Future.wait([
-       //       arCoreController.removeNode(nodeName: 'imageNode').then((value) =>
-       //       {
-       //         addNode(firstHit, xPosition, yPosition, scale, zRotation)
-       //       })
-       //     ]);
-       //   });
-       // },
+       onDragCompleted: (handlerIndex, lowerValue, upperValue) {
+         setState(() {
+           arCoreController.removeNode(nodeName: 'scaledNode');
+           imageNode.scale.value = vector.Vector3(scale,scale,1);
+           arCoreController.addArCoreNode(imageNode);
+           // addNode(firstHit, xPosition, yPosition, scale, zRotation);
+         });
+       },
    ));
   }
 
