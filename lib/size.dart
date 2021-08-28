@@ -50,14 +50,14 @@ class SizeControllerState extends State<SizeController> {
          onDragStarted: (handlerIndex, lowerValue, upperValue){
          setState(() {
            arCoreController.removeNode(nodeName: 'imageNode');
-           addScaledNode(firstHit, xPosition, yPosition, scale, zRotation);
+           addScaledNode(firstHit, xPosition, yPosition, scale, zRotation, yRotation);
          });
          },
        onDragging: (handlerIndex, lowerValue, upperValue) {
          setState(() {
            arCoreController.removeNode(nodeName: 'scaledNode');
            scale = lowerValue;
-           addScaledNode(firstHit, xPosition, yPosition, scale, zRotation);
+           addScaledNode(firstHit, xPosition, yPosition, scale, zRotation, yRotation);
          });
        },
        onDragCompleted: (handlerIndex, lowerValue, upperValue) {
