@@ -28,3 +28,15 @@ Built using [Flutter app development framework](https://flutter.dev/). Flutter i
 **Position & Rotation Controller:** Control on Positional and Rotational changes to nodes of the AR Image. Both Positional and Rotational funcitonality is built on constructing altered objects from quaternion-based values.
 
 **Sizing Controller:** Allows for Resizing for AR image through the scale controller. 
+
+## Screens
+
+### Upload Page | Position & Rotation Controller | Sizing Controller
+
+<p align = "left" >
+  <img width="280" height="500" src="assets/gifs/uploading images v2.gif">
+  <img width="280" height="500"  src="assets/gifs/rotate.gif"> 
+  <img width="280" height="500" src="assets/gifs/sizing v2 (1).gif"> 
+</p>
+
+
