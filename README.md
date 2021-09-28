@@ -1,6 +1,6 @@
 # AR Live Posters
  <p align = "left" >
-  <img width="1000" height="550" src="assets/gifs/intro.gif">
+  <img width="850" height="500" src="assets/gifs/intro.gif">
  
 </p>
 
@@ -34,9 +34,9 @@ Built using [Flutter app development framework](https://flutter.dev/). Flutter i
 ### Upload Page | Position & Rotation Controller | Sizing Controller
 
 <p align = "left" >
-  <img width="280" height="500" src="assets/gifs/uploading images v2.gif">
-  <img width="280" height="500"  src="assets/gifs/rotate.gif"> 
-  <img width="280" height="500" src="assets/gifs/sizing v2 (1).gif"> 
+  <img width="250" height="450" src="assets/gifs/uploading images v2.gif">
+  <img width="250" height="450"  src="assets/gifs/rotate.gif"> 
+  <img width="250" height="450" src="assets/gifs/sizing v2 (1).gif"> 
 </p>
 
 
