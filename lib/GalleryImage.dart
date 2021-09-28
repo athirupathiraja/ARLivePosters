@@ -10,6 +10,8 @@ import 'dart:io';
 import 'homePage.dart';
 late Uint8List uint8list;
 var image;
+double imageHeight = 0;
+double imageWidth = 0;
 
 class GalleryImage extends StatefulWidget {
 
@@ -29,6 +31,8 @@ class GalleryImageState extends State<GalleryImage> {
        {
            setState(() {
              image = File(pickedImage!.path);
+
+
              // XFilesImage = pickedImage;
 
              // uint8list = image.readAsBytes(); //could be error here(type error - XFile vs File)
@@ -43,6 +47,7 @@ class GalleryImageState extends State<GalleryImage> {
        //   uint8list = await XFilesImage.readAsBytes();
        // });
        uint8list = await XFilesImage.readAsBytes();
+       
        print('THIS HAPPENED');
        return uint8list;
    } catch(e){
@@ -80,15 +85,15 @@ class GalleryImageState extends State<GalleryImage> {
     return Column(
     children: [
       Padding(
-        padding: const EdgeInsets.only(top: 40, left: 20),
+        padding: EdgeInsets.only(top: 40, right: mediaQuery.size.width - 250, left: 20),
         child: Container(
           height: 100,
           width: 100,
           alignment: Alignment.topLeft,
-          decoration: BoxDecoration(
-            shape: BoxShape.rectangle,
-            border: Border.all(color: Colors.white, width: 1.5),
-          ),
+            decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              border: Border.all(color: Colors.white, width: 1.5),
+            ),
           child: (image != null) ?
               Image.file(
                 image,
@@ -105,21 +110,24 @@ class GalleryImageState extends State<GalleryImage> {
       SizedBox(
         height: mediaQuery.size.height-230,
       ),
-      Container(
-        height: 60,
-        width: 60,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(color: Colors.white, width: 1.5),
-          color: Colors.transparent,
-        ),
-        alignment: Alignment.bottomCenter,
-        child: IconButton(
-          iconSize: 30,
-          onPressed: (){
-            pickImage();
-          },
-          icon: Icon(Icons.upload_sharp, color: Colors.white,),
+      Padding(
+        padding: EdgeInsets.only(left: mediaQuery.size.width/2 - 60),
+        child: Container(
+          height: 60,
+          width: 60,
+          // decoration: BoxDecoration(
+          //   shape: BoxShape.circle,
+          //   border: Border.all(color: Colors.white, width: 1.5),
+          //   color: Colors.transparent,
+          // ),
+          alignment: Alignment.bottomCenter,
+          child: IconButton(
+            iconSize: 60,
+            onPressed: (){
+              pickImage();
+            },
+            icon: Icon(Icons.drive_folder_upload_rounded, color: Colors.white,),
+          ),
         ),
       ),
     ]);

@@ -34,16 +34,17 @@ class ArCoreViewScreenState extends State<ArCoreViewScreen> {
     final bytes = uint8list;
     // (await rootBundle.load(imagePath)).buffer.asUint8List();
     // final bytes = (await image.buffer.asUnit8List());
+    var decodedImage = await decodeImageFromList(uint8list);
+    print('THIS IS THE IMAGE WIDTH: ${decodedImage.width}');
 
     imageNode = ArCoreNode(
       name: 'imageNode',
-      image: ArCoreImage(bytes: bytes, width: 500, height: 500),
+      image: ArCoreImage(bytes: bytes, width: decodedImage.width, height: decodedImage.height),
       position: hit.pose.translation + vector.Vector3(0,0, 0),
       rotation: hit.pose.rotation + vector.Vector4(0, 500,0, 0),
     );
-
-
     arCoreController.addArCoreNode(imageNode);
+    print('LENGTH IN BYTES: ${bytes.elementSizeInBytes}');
   }
 
   void _handleOnPlaneTap(List<ArCoreHitTestResult> hits) {

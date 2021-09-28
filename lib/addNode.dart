@@ -16,13 +16,14 @@ Future addNode(ArCoreHitTestResult hit, double xPosition, double yPosition,
     double scale, double zRotation, double yRotation
     ) async {
   final bytes = uint8list;
+  var decodedImage = await decodeImageFromList(uint8list);
   // (await rootBundle.load(image)).buffer.asUint8List();
   // final bytes =
   // (await rootBundle.load('assets/images/jayz.jpeg')).buffer.asUint8List();
 
   imageNode = ArCoreNode(
     scale: vector.Vector3(scale,scale,1),
-    image: ArCoreImage(bytes: bytes, width: 500, height: 500),
+    image: ArCoreImage(bytes: bytes, width: decodedImage.width, height: decodedImage.height),
     position: hit.pose.translation + vector.Vector3(xPosition, yPosition, 0),
     rotation: hit.pose.rotation + vector.Vector4(yRotation, 500,0, zRotation),
   );

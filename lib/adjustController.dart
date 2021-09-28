@@ -22,6 +22,15 @@ class AdjustControllerState extends State<AdjustController>{
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        IconButton(
+          padding: EdgeInsets.only(bottom: mediaQuery.size.height - 260, right: mediaQuery.size.width - 60, left: 20),
+          icon: Icon(Icons.delete, color: Colors.white,),
+          iconSize: 35, onPressed: () {
+            setState(() {
+              arCoreController.removeNode(nodeName: 'imageNode');
+            });
+        },
+        ),
         // IconButton(onPressed: () {
         //   setState(() {
         //     scale += 0.1;
@@ -44,9 +53,9 @@ class AdjustControllerState extends State<AdjustController>{
                 padding: EdgeInsets.only( bottom: 20, left: 30),
                 child: FlutterSlider(
                     values: [yRotation],
-                    max: 500,
-                    min: -500,
-                    step: FlutterSliderStep(step: 50),
+                    max: 550,
+                    min: -550,
+                    step: FlutterSliderStep(step: 10),
                     axis: Axis.vertical,
                     handler: FlutterSliderHandler(
                         decoration: BoxDecoration(
@@ -71,7 +80,7 @@ class AdjustControllerState extends State<AdjustController>{
                       setState(() {
                         arCoreController.removeNode(nodeName: 'imageNode').whenComplete(() =>
                         {
-                        addYRotatedNode(firstHit, xPosition, yPosition, scale, zRotation, yRotation);
+                        addRotatedNode(firstHit, xPosition, yPosition, scale, zRotation, yRotation),
                         });
 
                         // addRotatedNode(firstHit, xPosition, yPosition, scale, zRotation);
@@ -80,18 +89,17 @@ class AdjustControllerState extends State<AdjustController>{
                     },
                     onDragging: (handlerIndex, lowerValue, upperValue) {
                       setState(() {
-                        arCoreController.removeNode(nodeName: 'yRotatedNode').whenComplete(() =>
-                        {
-                        yRotation = lowerValue,
-                        addYRotatedNode(firstHit, xPosition, yPosition, scale, zRotation, yRotation),
-                        });
+                        arCoreController.removeNode(nodeName: 'rotatedNode');
+                        yRotation = lowerValue;
+                        addRotatedNode(firstHit, xPosition, yPosition, scale, zRotation, yRotation);
+
 
                       });
                     },
                     onDragCompleted: (handlerIndex, lowerValue, upperValue) {
                       setState(() {
 
-                        arCoreController.removeNode(nodeName: 'yRotatedNode').whenComplete(() =>
+                        arCoreController.removeNode(nodeName: 'rotatedNode').whenComplete(() =>
                         {
                         imageNode.rotation.value = firstHit.pose.rotation + vector.Vector4(yRotation,500,0,zRotation),
                             arCoreController.addArCoreNode(imageNode),
@@ -231,7 +239,7 @@ class AdjustControllerState extends State<AdjustController>{
                     values: [zRotation],
                     max: 250,
                     min: -250,
-                    step: FlutterSliderStep(step: 50),
+                    step: FlutterSliderStep(step: 25),
                     axis: Axis.vertical,
                     handler: FlutterSliderHandler(
                         decoration: BoxDecoration(
@@ -278,8 +286,9 @@ class AdjustControllerState extends State<AdjustController>{
 
                         arCoreController.removeNode(nodeName: 'rotatedNode').whenComplete(() =>
                         {
-                        imageNode.rotation.value = firstHit.pose.rotation + vector.Vector4(yPosition,500,0,zRotation),
+                        imageNode.rotation.value = firstHit.pose.rotation + vector.Vector4(yRotation,500,0,zRotation),
                             arCoreController.addArCoreNode(imageNode),
+
 
                         });
 
