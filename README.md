@@ -1,4 +1,8 @@
 # AR Live Posters
+ <p align = "left" >
+  <img width="1000" height="550" src="assets/gifs/intro.gif">
+ 
+</p>
 
 ## Introduction
 Augmented reality application to place user uploaded images of posters on physical walls in
