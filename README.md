@@ -1,11 +1,26 @@
-# ar_posters
+# AR Live Posters
 
-A new Flutter project.
+## Introduction
+Augmented reality application to place user uploaded images of posters on physical walls in
+the real-world environment.
 
-## Getting Started
+Built for Android only. 
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.dev/).
+## Technologies & Architecture
 
-For instructions integrating Flutter modules to your existing applications,
-see the [add-to-app documentation](https://flutter.dev/docs/development/add-to-app).
+Built using [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows for a native applications to be built for i0S, Android, desktio and the web using a single codebase. 
+
+[ArCore](https://developers.google.com/ar/develop) is Google's platform for building augmented reality experiences. "Using different APIs, ARCore enables your phone to sense its environment, understand the world and interact with information."
+
+#### Plugins
+* Arcore Core Flutter Plugin: ^0.0.11
+* Dart Math
+* Flutter Xlider: ^3.4.0
+* Image Picker: ^0.8.3+3
+
+## Features
+**Upload Page:** Allows for user inputted images of their desired posters from their gallery. 
+
+**Position & Rotation Controller:** Control on Positional and Rotational changes to nodes of the AR Image. Both Positional and Rotational funcitonality is built on constructing altered objects from quaternion-based values.
+
+**Sizing Controller:** Allows for Resizing for AR image through the scale controller. 
