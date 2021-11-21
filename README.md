@@ -12,7 +12,7 @@ Built for Android only.
 
 ## Technologies & Architecture
 
-Built using [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows for a native applications to be built for i0S, Android, desktio and the web using a single codebase. 
+Built using [Flutter app development framework](https://flutter.dev/). Flutter is a cross-platform hybrid app development platform which allows for a native applications to be built for i0S, Android, desktop and the web using a single codebase. 
 
 [ArCore](https://developers.google.com/ar/develop) is Google's platform for building augmented reality experiences. "Using different APIs, ARCore enables your phone to sense its environment, understand the world and interact with information."
 
